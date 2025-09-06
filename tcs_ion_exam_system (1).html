@@ -1,0 +1,2694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>TCS iON Style Mock Test for Engineering Students</title>
+<meta name="description" content="Free mock tests for TCS, Infosys, Wipro, Cognizant, Accenture. Practice placement exams with real TCS iON-style interface, timer, question palette, and proctoring.">
+<meta name="keywords" content="TCS iON mock test, Infosys placement, Wipro exam, Cognizant test, Accenture mock exam, engineering placement test, aptitude practice">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://techprepmocktest.netlify.app/">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCS iON Digital Exam Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        /* Disable text selection and context menu */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-context-menu: none;
+        }
+
+        /* Mobile warning */
+        .mobile-warning {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a3d62;
+            color: white;
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .mobile-warning h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-warning {
+                display: flex;
+            }
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a3d62 0%, #2c5282 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 400px;
+            text-align: center;
+        }
+
+        .login-logo {
+            width: 120px;
+            height: 60px;
+            background: #0a3d62;
+            margin: 0 auto 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .login-title {
+            color: #0a3d62;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #0a3d62;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #0a3d62;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #083047;
+        }
+
+        /* Instructions Page Styles */
+        .instructions-container {
+            min-height: 100vh;
+            background: white;
+        }
+
+        .exam-header {
+            background: #0a3d62;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .exam-header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .instructions-content {
+            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .instructions-title {
+            color: #0a3d62;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .instructions-box {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .instruction-section {
+            margin-bottom: 20px;
+        }
+
+        .instruction-section h3 {
+            color: #0a3d62;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .instruction-section ul {
+            margin-left: 20px;
+        }
+
+        .instruction-section li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .consent-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+        }
+
+        .consent-section input {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+
+        .start-exam-btn {
+            background: #27ae60;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            transition: background 0.3s;
+        }
+
+        .start-exam-btn:hover {
+            background: #229954;
+        }
+
+        .start-exam-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        /* Exam Interface Styles */
+        .exam-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+
+        .exam-top-bar {
+            background: #0a3d62;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .exam-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .candidate-info {
+            text-align: center;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        .timer-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timer {
+            background: white;
+            color: #0a3d62;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 16px;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .timer.warning {
+            background: #e74c3c;
+            color: white;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.5; }
+        }
+
+        .camera-preview {
+            width: 120px;
+            height: 90px;
+            background: #34495e;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            cursor: move;
+            resize: both;
+            overflow: hidden;
+            min-width: 80px;
+            min-height: 60px;
+            border: 2px solid #0a3d62;
+        }
+
+        .camera-preview video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .exam-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .question-palette {
+            width: 300px;
+            background: #f8f9fa;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .palette-header {
+            background: #ecf0f1;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .section-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            padding: 10px;
+            background: #ecf0f1;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .section-tab {
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .section-tab.active {
+            background: #0a3d62;
+            color: white;
+        }
+
+        .section-tab.locked {
+            background: #95a5a6;
+            color: #7f8c8d;
+            cursor: not-allowed;
+        }
+
+        .section-progress {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #ecf0f1;
+            border-radius: 2px;
+            margin: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #27ae60;
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        .palette-grid {
+            padding: 15px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .palette-questions {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .palette-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .palette-btn.not-visited {
+            background: #d3d3d3;
+            color: #333;
+        }
+
+        .palette-btn.not-answered {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .palette-btn.answered {
+            background: #27ae60;
+            color: white;
+        }
+
+        .palette-btn.marked {
+            background: #8e44ad;
+            color: white;
+        }
+
+        .palette-btn.current {
+            border: 3px solid #f39c12;
+        }
+
+        /* Tooltip styles */
+        .palette-btn::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .palette-btn:hover::after {
+            opacity: 1;
+        }
+
+        .legend {
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+
+        .question-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .question-info {
+            font-weight: 600;
+            color: #0a3d62;
+        }
+
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .options-container {
+            margin-bottom: 30px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            background: #f8f9fa;
+        }
+
+        .option.selected {
+            background: #e3f2fd;
+            border-color: #0a3d62;
+        }
+
+        .option input {
+            margin-right: 12px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .option-text {
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        .numeric-input {
+            width: 200px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .numeric-input.invalid {
+            border-color: #e74c3c;
+        }
+
+        .question-navigation {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.primary {
+            background: #0a3d62;
+            color: white;
+        }
+
+        .nav-btn.primary:hover {
+            background: #083047;
+        }
+
+        .nav-btn.secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .nav-btn.secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .nav-btn.danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .nav-btn.danger:hover {
+            background: #c0392b;
+        }
+
+        .nav-btn.warning {
+            background: #8e44ad;
+            color: white;
+        }
+
+        .nav-btn.warning:hover {
+            background: #7d3c98;
+        }
+
+        .exam-footer {
+            background: #0a3d62;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-info {
+            font-size: 14px;
+        }
+
+        .section-timer {
+            font-size: 14px;
+            margin-left: 20px;
+        }
+
+        .submit-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Result Page Styles */
+        .result-container {
+            min-height: 100vh;
+            background: #f8f9fa;
+            padding: 30px;
+        }
+
+        .result-box {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .result-title {
+            color: #0a3d62;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .result-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #0a3d62;
+        }
+
+        .summary-card h3 {
+            color: #0a3d62;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        .chart-card h3 {
+            color: #0a3d62;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .section-breakdown {
+            margin-top: 30px;
+        }
+
+        .section-breakdown h3 {
+            color: #0a3d62;
+            margin-bottom: 15px;
+        }
+
+        .section-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .section-card {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .section-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .download-btn {
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #229954;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .modal h3 {
+            color: #0a3d62;
+            margin-bottom: 15px;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .modal-btn.confirm {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .modal-btn.cancel {
+            background: #95a5a6;
+            color: white;
+        }
+
+        /* Warning styles */
+        .warning-banner {
+            background: #f39c12;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-weight: 600;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .fullscreen-warning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #e74c3c;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+            z-index: 999;
+        }
+
+        /* Auto-save indicator */
+        .auto-save-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .auto-save-indicator.show {
+            opacity: 1;
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .question-palette {
+                width: 250px;
+            }
+            
+            .result-summary {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Warning -->
+    <div class="mobile-warning">
+        <h2>⚠️ Desktop Required</h2>
+        <p>This exam must be taken on a laptop or desktop computer.<br>Mobile devices are not supported.</p>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <div class="login-logo">TCS iON</div>
+            <h2 class="login-title">Digital Exam Platform</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="rollNumber">Roll Number</label>
+                    <input type="text" id="rollNumber" name="rollNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Instructions Page -->
+    <div id="instructionsPage" class="instructions-container hidden">
+        <div class="exam-header">
+            <h1>Mock Test - Software Companies Placement</h1>
+            <div class="camera-preview" id="cameraPreview">Camera</div>
+        </div>
+        <div class="instructions-content">
+            <h2 class="instructions-title">Examination Instructions</h2>
+            <div class="instructions-box">
+                <div class="instruction-section">
+                    <h3>General Instructions:</h3>
+                    <ul>
+                        <li>Total Duration: 120 minutes</li>
+                        <li>Total Questions: 100 (20 questions per company section)</li>
+                        <li>Marking Scheme: +1 for correct answer, 0 for wrong answer, -0.25 for incorrect (if negative marking enabled)</li>
+                        <li>Questions are randomized for each candidate</li>
+                        <li>Exam must be taken in fullscreen mode</li>
+                        <li>Auto-save enabled every 15 seconds</li>
+                    </ul>
+                </div>
+                <div class="instruction-section">
+                    <h3>Anti-Cheating Measures:</h3>
+                    <ul>
+                        <li>Tab switching is strictly monitored and will result in automatic submission</li>
+                        <li>Webcam monitoring is active throughout the exam</li>
+                        <li>Right-click, copy-paste, and keyboard shortcuts are disabled</li>
+                        <li>Fullscreen exit will trigger warnings</li>
+                        <li>Multiple violations will terminate the exam</li>
+                    </ul>
+                </div>
+                <div class="instruction-section">
+                    <h3>Navigation Instructions:</h3>
+                    <ul>
+                        <li>Click on question numbers in the palette to jump to specific questions</li>
+                        <li>Use "Save & Next" to save your response and move forward</li>
+                        <li>Use "Mark for Review" to flag questions for later review</li>
+                        <li>Progress bars show completion status for each section</li>
+                        <li>Section timers help manage time effectively</li>
+                    </ul>
+                </div>
+                <div class="instruction-section">
+                    <h3>Question Palette Legend:</h3>
+                    <ul>
+                        <li><strong>Gray:</strong> Not Visited</li>
+                        <li><strong>Red:</strong> Not Answered (visited but not answered)</li>
+                        <li><strong>Green:</strong> Answered</li>
+                        <li><strong>Purple:</strong> Marked for Review</li>
+                    </ul>
+                </div>
+                <div class="instruction-section">
+                    <h3>Technical Requirements:</h3>
+                    <ul>
+                        <li>Stable internet connection required</li>
+                        <li>Chrome, Firefox, or Safari browser recommended</li>
+                        <li>Camera and microphone permissions must be granted</li>
+                        <li>Close all other applications before starting</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="consent-section">
+                <input type="checkbox" id="instructionsRead">
+                <label for="instructionsRead">I have read and understood all instructions. I agree to follow exam guidelines and accept monitoring during the test.</label>
+            </div>
+            <button id="startExamBtn" class="start-exam-btn" disabled>Start Exam</button>
+        </div>
+    </div>
+
+    <!-- Fullscreen Warning -->
+    <div id="fullscreenWarning" class="fullscreen-warning hidden">
+        ⚠️ Please return to fullscreen mode immediately! Press F11 or click the fullscreen button.
+    </div>
+
+    <!-- Warning Banner -->
+    <div id="warningBanner" class="warning-banner hidden">
+        WARNING: Suspicious activity detected! Next violation will auto-submit your test.
+    </div>
+
+    <!-- Auto-save Indicator -->
+    <div id="autoSaveIndicator" class="auto-save-indicator">
+        ✓ Auto-saved
+    </div>
+
+    <!-- Exam Interface -->
+    <div id="examPage" class="exam-container hidden">
+        <div class="exam-top-bar">
+            <div class="exam-title">Mock Test - Software Companies Placement</div>
+            <div class="candidate-info">
+                <div id="candidateName">John Doe</div>
+                <div id="candidateRoll">Roll: 12345</div>
+                <button class="logout-btn" id="examLogoutBtn">Logout</button>
+            </div>
+            <div class="timer-section">
+                <div id="timer" class="timer">02:00:00</div>
+            </div>
+        </div>
+
+        <!-- Draggable Camera Preview -->
+        <div class="camera-preview" id="examCameraPreview">
+            <video id="cameraVideo" autoplay muted></video>
+        </div>
+
+        <div class="exam-body">
+            <div class="question-palette">
+                <div class="palette-header">Question Palette</div>
+                <div class="section-tabs" id="sectionTabs">
+                    <!-- Section tabs will be populated by JavaScript -->
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="sectionProgress"></div>
+                </div>
+                <div class="palette-grid">
+                    <div id="paletteQuestions" class="palette-questions"></div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #d3d3d3;"></div>
+                            <span>Not Visited</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #e74c3c;"></div>
+                            <span>Not Answered</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #27ae60;"></div>
+                            <span>Answered</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #8e44ad;"></div>
+                            <span>Marked for Review</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-area">
+                <div class="question-header">
+                    <div class="question-info">
+                        <span>Question <span id="currentQuestionNum">1</span> of <span id="totalQuestions">100</span></span>
+                    </div>
+                    <div class="question-info">
+                        <span>Marks: <span id="questionMarks">1</span></span>
+                    </div>
+                </div>
+
+                <div id="questionText" class="question-text">
+                    <!-- Question will be loaded here -->
+                </div>
+
+                <div id="optionsContainer" class="options-container">
+                    <!-- Options will be loaded here -->
+                </div>
+
+                <div class="question-navigation">
+                    <button class="nav-btn secondary" id="prevBtn">Previous</button>
+                    <button class="nav-btn secondary" id="clearBtn">Clear Response</button>
+                    <button class="nav-btn warning" id="markReviewBtn">Mark for Review & Next</button>
+                    <button class="nav-btn primary" id="saveNextBtn">Save & Next</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="exam-footer">
+            <div class="section-info">
+                Current Section: <span id="currentSection">TCS</span>
+                <span class="section-timer" id="sectionTimer">Time: 24:00</span>
+            </div>
+            <button class="submit-btn" id="submitTestBtn">Submit Test</button>
+        </div>
+    </div>
+
+    <!-- Result Page -->
+    <div id="resultPage" class="result-container hidden">
+        <div class="result-box">
+            <div class="result-header">
+                <h2 class="result-title">Exam Results</h2>
+                <div>
+                    <button class="download-btn" id="downloadPdfBtn">Download PDF</button>
+                    <button class="logout-btn" id="resultLogoutBtn">Logout</button>
+                </div>
+            </div>
+            
+            <div class="result-summary">
+                <div class="summary-card">
+                    <h3>Overall Performance</h3>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <span>Total Questions:</span>
+                            <span id="resultTotalQuestions">100</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Attempted:</span>
+                            <span id="resultAttempted">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Correct:</span>
+                            <span id="resultCorrect">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Score:</span>
+                            <span id="resultScore">0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <h3>Time Analysis</h3>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <span>Total Time:</span>
+                            <span>120 minutes</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Time Taken:</span>
+                            <span id="resultTimeTaken">0 minutes</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Avg per Question:</span>
+                            <span id="avgTimePerQuestion">0 sec</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Submission:</span>
+                            <span id="submissionType">Manual</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>Accuracy Metrics</h3>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <span>Accuracy:</span>
+                            <span id="accuracyPercent">0%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Marked for Review:</span>
+                            <span id="resultMarkedReview">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Not Attempted:</span>
+                            <span id="resultNotAttempted">100</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Violations:</span>
+                            <span id="violationCount">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-container">
+                <div class="chart-card">
+                    <h3>Section-wise Performance</h3>
+                    <canvas id="sectionChart" width="400" height="200"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Response Distribution</h3>
+                    <canvas id="responseChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <div class="section-breakdown">
+                <h3>Detailed Section Analysis</h3>
+                <div class="section-stats" id="detailedSectionStats">
+                    <!-- Detailed section stats will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h3>Confirm Action</h3>
+            <p id="confirmMessage">Are you sure you want to proceed?</p>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" id="cancelAction">Cancel</button>
+                <button class="modal-btn confirm" id="confirmAction">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Warning Modal -->
+    <div id="warningModal" class="modal">
+        <div class="modal-content">
+            <h3 id="warningTitle">Warning!</h3>
+            <p id="warningMessage">Suspicious activity detected.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm" id="warningOk">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Leave Warning -->
+    <script>
+        // Enhanced TCS iON Digital Exam System
+        // Global variables and configuration
+        let examData = {
+            candidate: {
+                name: '',
+                rollNumber: ''
+            },
+            currentQuestion: 0,
+            currentSection: 'tcs',
+            timeRemaining: 120 * 60, // 120 minutes in seconds
+            sectionTimeSpent: {},
+            questionTimeSpent: {},
+            tabSwitchCount: 0,
+            fullscreenExitCount: 0,
+            examStartTime: null,
+            questions: {},
+            responses: {},
+            visitedQuestions: new Set(),
+            markedForReview: new Set(),
+            correctAnswers: {},
+            sequentialMode: false, // Enable for sequential section completion
+            completedSections: new Set(),
+            webcamSnapshots: [],
+            violationCount: 0,
+            autoSaveInterval: null
+        };
+
+        let timerInterval, sectionTimerInterval, webcamInterval;
+        let examStarted = false;
+        let stream = null;
+
+        // Sample questions with correct answers
+        const sampleQuestions = {
+            tcs: [
+                {
+                    id: 1,
+                    text: "What is the output of the following C code?\n\n```c\nint x = 5;\nprintf(\"%d\", x++ + ++x);\n```",
+                    type: "mcq",
+                    options: ["11", "12", "13", "14"],
+                    correct: 2,
+                    marks: 1
+                },
+                {
+                    id: 2,
+                    text: "Which of the following is NOT a programming paradigm?",
+                    type: "mcq",
+                    options: ["Object-Oriented", "Functional", "Procedural", "Database"],
+                    correct: 3,
+                    marks: 1
+                },
+                {
+                    id: 3,
+                    text: "What is the time complexity of binary search?",
+                    type: "mcq",
+                    options: ["O(n)", "O(log n)", "O(n log n)", "O(n²)"],
+                    correct: 1,
+                    marks: 1
+                },
+                {
+                    id: 4,
+                    text: "Which data structure follows LIFO principle?",
+                    type: "mcq",
+                    options: ["Queue", "Stack", "Array", "Linked List"],
+                    correct: 1,
+                    marks: 1
+                },
+                {
+                    id: 5,
+                    text: "In SQL, which command is used to retrieve data?",
+                    type: "mcq",
+                    options: ["INSERT", "UPDATE", "SELECT", "DELETE"],
+                    correct: 2,
+                    marks: 1
+                },
+                {
+                    id: 6,
+                    text: "What does HTTP stand for?",
+                    type: "mcq",
+                    options: ["HyperText Transfer Protocol", "High Transfer Text Protocol", "HyperText Transport Protocol", "High Text Transfer Protocol"],
+                    correct: 0,
+                    marks: 1
+                },
+                {
+                    id: 7,
+                    text: "Which of the following are valid Java access modifiers? (Select all that apply)",
+                    type: "msq",
+                    options: ["public", "private", "protected", "internal"],
+                    correct: [0, 1, 2],
+                    marks: 2
+                },
+                {
+                    id: 8,
+                    text: "What is the result of 15 % 4?",
+                    type: "numeric",
+                    correct: 3,
+                    marks: 1
+                },
+                {
+                    id: 9,
+                    text: "Which sorting algorithm has the best average case time complexity?",
+                    type: "mcq",
+                    options: ["Bubble Sort", "Quick Sort", "Insertion Sort", "Selection Sort"],
+                    correct: 1,
+                    marks: 1
+                },
+                {
+                    id: 10,
+                    text: "What is the maximum value that can be stored in a signed 8-bit integer?",
+                    type: "numeric",
+                    correct: 127,
+                    marks: 1
+                },
+                // Add more questions for each section (continuing with same pattern)
+                {
+                    id: 11,
+                    text: "Which of the following is used for version control?",
+                    type: "mcq",
+                    options: ["Git", "Docker", "Jenkins", "Maven"],
+                    correct: 0,
+                    marks: 1
+                },
+                {
+                    id: 12,
+                    text: "What does CSS stand for?",
+                    type: "mcq",
+                    options: ["Cascading Style Sheets", "Computer Style Sheets", "Creative Style Sheets", "Colorful Style Sheets"],
+                    correct: 0,
+                    marks: 1
+                },
+                {
+                    id: 13,
+                    text: "Which of the following are JavaScript frameworks? (Select all that apply)",
+                    type: "msq",
+                    options: ["React", "Angular", "Vue", "Laravel"],
+                    correct: [0, 1, 2],
+                    marks: 2
+                },
+                {
+                    id: 14,
+                    text: "In which year was Python first released?",
+                    type: "numeric",
+                    correct: 1991,
+                    marks: 1
+                },
+                {
+                    id: 15,
+                    text: "What is the output of print(2**3) in Python?",
+                    type: "mcq",
+                    options: ["6", "8", "9", "23"],
+                    correct: 1,
+                    marks: 1
+                },
+                {
+                    id: 16,
+                    text: "Which HTTP status code indicates 'Not Found'?",
+                    type: "numeric",
+                    correct: 404,
+                    marks: 1
+                },
+                {
+                    id: 17,
+                    text: "What does API stand for?",
+                    type: "mcq",
+                    options: ["Application Programming Interface", "Advanced Programming Interface", "Application Process Interface", "Advanced Process Interface"],
+                    correct: 0,
+                    marks: 1
+                },
+                {
+                    id: 18,
+                    text: "Which of the following are NoSQL databases? (Select all that apply)",
+                    type: "msq",
+                    options: ["MongoDB", "MySQL", "Cassandra", "Redis"],
+                    correct: [0, 2, 3],
+                    marks: 2
+                },
+                {
+                    id: 19,
+                    text: "What is the default port number for HTTPS?",
+                    type: "numeric",
+                    correct: 443,
+                    marks: 1
+                },
+                {
+                    id: 20,
+                    text: "Which design pattern is used to create objects without specifying their exact class?",
+                    type: "mcq",
+                    options: ["Singleton", "Factory", "Observer", "Strategy"],
+                    correct: 1,
+                    marks: 1
+                }
+            ],
+            // Add similar question arrays for other sections (infosys, wipro, cognizant, accenture)
+            // For brevity, I'll add just a few questions for each section
+            infosys: [
+                {
+                    id: 21,
+                    text: "What is the output of the following Java code?\n\n```java\nString s1 = \"Hello\";\nString s2 = \"Hello\";\nSystem.out.println(s1 == s2);\n```",
+                    type: "mcq",
+                    options: ["true", "false", "compilation error", "runtime error"],
+                    correct: 0,
+                    marks: 1
+                }
+                // ... more questions
+            ],
+            wipro: [
+                {
+                    id: 41,
+                    text: "What is the worst-case time complexity of quicksort?",
+                    type: "mcq",
+                    options: ["O(n log n)", "O(n²)", "O(log n)", "O(n)"],
+                    correct: 1,
+                    marks: 1
+                }
+                // ... more questions
+            ],
+            cognizant: [
+                {
+                    id: 61,
+                    text: "What is the average case time complexity of hash table lookup?",
+                    type: "mcq",
+                    options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+                    correct: 0,
+                    marks: 1
+                }
+                // ... more questions
+            ],
+            accenture: [
+                {
+                    id: 81,
+                    text: "What will be the output of the following JavaScript code?\n\n```javascript\nconsole.log(typeof null);\n```",
+                    type: "mcq",
+                    options: ["null", "undefined", "object", "boolean"],
+                    correct: 2,
+                    marks: 1
+                }
+                // ... more questions
+            ]
+        };
+
+        // Initialize exam data
+        examData.questions = sampleQuestions;
+
+        // Enhanced anti-cheating measures
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        
+        // Block more keyboard shortcuts
+        document.addEventListener('keydown', e => {
+            const blockedKeys = [
+                'F12', 'F5', 'F11',
+                'PrintScreen', 'Insert',
+                'Home', 'End', 'PageUp', 'PageDown'
+            ];
+            
+            const blockedCombos = [
+                { ctrl: true, key: 'c' },
+                { ctrl: true, key: 'v' },
+                { ctrl: true, key: 'a' },
+                { ctrl: true, key: 'p' },
+                { ctrl: true, key: 's' },
+                { ctrl: true, key: 'r' },
+                { ctrl: true, key: 'u' },
+                { ctrl: true, key: 'h' },
+                { ctrl: true, key: 'j' },
+                { ctrl: true, key: 'k' },
+                { ctrl: true, key: 'l' },
+                { ctrl: true, key: 'n' },
+                { ctrl: true, key: 't' },
+                { ctrl: true, key: 'w' },
+                { alt: true, key: 'Tab' },
+                { ctrl: true, key: 'Tab' },
+                { alt: true, key: 'F4' },
+                { ctrl: true, shift: true, key: 'I' },
+                { ctrl: true, shift: true, key: 'J' },
+                { ctrl: true, shift: true, key: 'C' }
+            ];
+            
+            if (blockedKeys.includes(e.key)) {
+                e.preventDefault();
+                if (examStarted) recordViolation('Blocked key pressed: ' + e.key);
+            }
+            
+            blockedCombos.forEach(combo => {
+                if ((combo.ctrl && e.ctrlKey || !combo.ctrl) &&
+                    (combo.alt && e.altKey || !combo.alt) &&
+                    (combo.shift && e.shiftKey || !combo.shift) &&
+                    e.key === combo.key) {
+                    e.preventDefault();
+                    if (examStarted) recordViolation('Blocked shortcut: ' + JSON.stringify(combo));
+                }
+            });
+        });
+
+        // Enhanced tab switching and window focus detection
+        document.addEventListener('visibilitychange', () => {
+            if (examStarted && document.hidden) {
+                examData.tabSwitchCount++;
+                recordViolation('Tab/Window switch detected');
+                
+                if (examData.tabSwitchCount === 1) {
+                    showWarning();
+                } else if (examData.tabSwitchCount >= 2) {
+                    autoSubmitExam('Multiple tab switching violations');
+                }
+            }
+        });
+
+        // Fullscreen monitoring
+        document.addEventListener('fullscreenchange', () => {
+            if (examStarted && !document.fullscreenElement) {
+                examData.fullscreenExitCount++;
+                recordViolation('Fullscreen mode exited');
+                showFullscreenWarning();
+                
+                if (examData.fullscreenExitCount >= 3) {
+                    autoSubmitExam('Multiple fullscreen exit violations');
+                }
+            }
+        });
+
+        // Page leave warning
+        window.addEventListener('beforeunload', (e) => {
+            if (examStarted) {
+                e.preventDefault();
+                e.returnValue = '';
+                return 'Are you sure you want to leave? Your exam progress will be lost.';
+            }
+        });
+
+        // Initialize drag functionality for camera preview
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            
+            element.onmousedown = dragMouseDown;
+            
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+            
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+            
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+        // Initialize camera
+        async function initializeCamera() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { width: 320, height: 240 }, 
+                    audio: true 
+                });
+                
+                const video = document.getElementById('cameraVideo');
+                if (video) {
+                    video.srcObject = stream;
+                }
+                
+                // Start periodic webcam snapshots
+                if (examStarted) {
+                    startWebcamMonitoring();
+                }
+                
+            } catch (err) {
+                console.warn('Camera access denied or not available:', err);
+                recordViolation('Camera access denied');
+            }
+        }
+
+        // Start webcam monitoring
+        function startWebcamMonitoring() {
+            webcamInterval = setInterval(captureWebcamSnapshot, 120000); // Every 2 minutes
+        }
+
+        // Capture webcam snapshot
+        function captureWebcamSnapshot() {
+            const video = document.getElementById('cameraVideo');
+            if (video && video.videoWidth > 0) {
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0);
+                
+                // Convert to base64 and store in memory
+                const snapshot = {
+                    timestamp: new Date().toISOString(),
+                    image: canvas.toDataURL('image/jpeg', 0.7)
+                };
+                
+                examData.webcamSnapshots.push(snapshot);
+                console.log('Webcam snapshot captured at:', snapshot.timestamp);
+            }
+        }
+
+        // Auto-save functionality
+        function startAutoSave() {
+            examData.autoSaveInterval = setInterval(() => {
+                saveExamState();
+                showAutoSaveIndicator();
+            }, 15000); // Every 15 seconds
+        }
+
+        function saveExamState() {
+            const state = {
+                candidate: examData.candidate,
+                currentQuestion: examData.currentQuestion,
+                currentSection: examData.currentSection,
+                timeRemaining: examData.timeRemaining,
+                responses: examData.responses,
+                visitedQuestions: Array.from(examData.visitedQuestions),
+                markedForReview: Array.from(examData.markedForReview),
+                completedSections: Array.from(examData.completedSections),
+                examStartTime: examData.examStartTime,
+                sectionTimeSpent: examData.sectionTimeSpent,
+                questionTimeSpent: examData.questionTimeSpent,
+                violationCount: examData.violationCount,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('tcsion_exam_state', JSON.stringify(state));
+        }
+
+        function loadExamState() {
+            const savedState = localStorage.getItem('tcsion_exam_state');
+            if (savedState) {
+                const state = JSON.parse(savedState);
+                
+                // Check if the saved state is recent (within 4 hours)
+                const savedTime = new Date(state.timestamp);
+                const now = new Date();
+                const timeDiff = (now - savedTime) / (1000 * 60 * 60); // hours
+                
+                if (timeDiff <= 4) {
+                    if (confirm('Found a saved exam session. Do you want to continue from where you left off?')) {
+                        // Restore state
+                        examData.candidate = state.candidate;
+                        examData.currentQuestion = state.currentQuestion;
+                        examData.currentSection = state.currentSection;
+                        examData.timeRemaining = state.timeRemaining;
+                        examData.responses = state.responses;
+                        examData.visitedQuestions = new Set(state.visitedQuestions);
+                        examData.markedForReview = new Set(state.markedForReview);
+                        examData.completedSections = new Set(state.completedSections);
+                        examData.examStartTime = new Date(state.examStartTime);
+                        examData.sectionTimeSpent = state.sectionTimeSpent || {};
+                        examData.questionTimeSpent = state.questionTimeSpent || {};
+                        examData.violationCount = state.violationCount || 0;
+                        
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        function clearExamState() {
+            localStorage.removeItem('tcsion_exam_state');
+        }
+
+        function showAutoSaveIndicator() {
+            const indicator = document.getElementById('autoSaveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
+        // Record violations
+        function recordViolation(type) {
+            examData.violationCount++;
+            console.warn('Violation recorded:', type, 'Total:', examData.violationCount);
+        }
+
+        // Randomize questions
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Initialize randomized questions
+        function initializeRandomizedQuestions() {
+            Object.keys(examData.questions).forEach(section => {
+                examData.questions[section] = shuffleArray(examData.questions[section]);
+            });
+        }
+
+        // DOM Content Loaded Event
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeEventListeners();
+            
+            // Check for saved exam state
+            if (loadExamState()) {
+                // Resume exam
+                document.getElementById('loginPage').classList.add('hidden');
+                document.getElementById('examPage').classList.remove('hidden');
+                examStarted = true;
+                
+                // Update UI
+                document.getElementById('candidateName').textContent = examData.candidate.name;
+                document.getElementById('candidateRoll').textContent = `Roll: ${examData.candidate.rollNumber}`;
+                
+                // Initialize exam interface
+                initializeSectionTabs();
+                initializeQuestionPalette();
+                loadQuestion(examData.currentQuestion);
+                startTimer();
+                startAutoSave();
+                initializeCamera();
+                enterFullscreen();
+                makeDraggable(document.getElementById('examCameraPreview'));
+            }
+        });
+
+        function initializeEventListeners() {
+            // Login functionality
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', handleLogin);
+            }
+
+            // Instructions
+            document.getElementById('instructionsRead')?.addEventListener('change', (e) => {
+                document.getElementById('startExamBtn').disabled = !e.target.checked;
+            });
+
+            document.getElementById('startExamBtn')?.addEventListener('click', startExam);
+
+            // Navigation
+            document.getElementById('prevBtn')?.addEventListener('click', () => navigateQuestion(-1));
+            document.getElementById('saveNextBtn')?.addEventListener('click', () => {
+                saveCurrentResponse();
+                navigateQuestion(1);
+            });
+            document.getElementById('clearBtn')?.addEventListener('click', clearResponse);
+            document.getElementById('markReviewBtn')?.addEventListener('click', () => {
+                markForReview();
+                navigateQuestion(1);
+            });
+
+            // Submit and logout
+            document.getElementById('submitTestBtn')?.addEventListener('click', showSubmitConfirmation);
+            document.getElementById('examLogoutBtn')?.addEventListener('click', showLogoutConfirmation);
+            document.getElementById('resultLogoutBtn')?.addEventListener('click', showLogoutConfirmation);
+
+            // Modal buttons
+            document.getElementById('confirmAction')?.addEventListener('click', handleConfirmAction);
+            document.getElementById('cancelAction')?.addEventListener('click', hideAllModals);
+            document.getElementById('warningOk')?.addEventListener('click', hideAllModals);
+
+            // Section tabs
+            document.getElementById('sectionTabs')?.addEventListener('click', handleSectionTabClick);
+
+            // Download PDF
+            document.getElementById('downloadPdfBtn')?.addEventListener('click', downloadResultsPDF);
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const rollNumber = document.getElementById('rollNumber').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            if (rollNumber && password) {
+                examData.candidate.rollNumber = rollNumber;
+                examData.candidate.name = `Student ${rollNumber}`;
+                showInstructions();
+            } else {
+                alert('Please enter both Roll Number and Password');
+            }
+        }
+
+        function showInstructions() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('instructionsPage').classList.remove('hidden');
+            initializeCamera();
+        }
+
+        function startExam() {
+            examStarted = true;
+            examData.examStartTime = new Date();
+            
+            // Clear any existing saved state and start fresh
+            clearExamState();
+            
+            // Initialize randomized questions
+            initializeRandomizedQuestions();
+            
+            document.getElementById('instructionsPage').classList.add('hidden');
+            document.getElementById('examPage').classList.remove('hidden');
+            
+            // Initialize timers for sections
+            examData.sectionTimeSpent = {};
+            Object.keys(examData.questions).forEach(section => {
+                examData.sectionTimeSpent[section] = 0;
+            });
+            
+            // Enter fullscreen
+            enterFullscreen();
+            
+            // Initialize exam interface
+            document.getElementById('candidateName').textContent = examData.candidate.name;
+            document.getElementById('candidateRoll').textContent = `Roll: ${examData.candidate.rollNumber}`;
+            
+            initializeSectionTabs();
+            initializeQuestionPalette();
+            loadQuestion(0);
+            startTimer();
+            startSectionTimer();
+            startAutoSave();
+            startWebcamMonitoring();
+            
+            // Make camera draggable
+            makeDraggable(document.getElementById('examCameraPreview'));
+        }
+
+        function enterFullscreen() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            }
+        }
+
+        function showFullscreenWarning() {
+            document.getElementById('fullscreenWarning').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('fullscreenWarning').classList.add('hidden');
+            }, 5000);
+        }
+
+        function initializeSectionTabs() {
+            const sectionTabs = document.getElementById('sectionTabs');
+            sectionTabs.innerHTML = '';
+            
+            const sections = Object.keys(examData.questions);
+            sections.forEach((section, index) => {
+                const tab = document.createElement('div');
+                tab.className = 'section-tab';
+                tab.dataset.section = section;
+                
+                if (index === 0) tab.classList.add('active');
+                if (examData.sequentialMode && index > 0 && !examData.completedSections.has(sections[index - 1])) {
+                    tab.classList.add('locked');
+                }
+                
+                const progress = calculateSectionProgress(section);
+                tab.innerHTML = `
+                    <div>${section.toUpperCase()}</div>
+                    <div class="section-progress">${progress.answered}/${progress.total}</div>
+                `;
+                
+                sectionTabs.appendChild(tab);
+            });
+        }
+
+        function calculateSectionProgress(section) {
+            const questions = examData.questions[section];
+            let answered = 0;
+            
+            questions.forEach(question => {
+                if (examData.responses[question.id] !== undefined) {
+                    answered++;
+                }
+            });
+            
+            return { answered, total: questions.length };
+        }
+
+        function updateSectionProgress() {
+            const progress = calculateSectionProgress(examData.currentSection);
+            const percentage = (progress.answered / progress.total) * 100;
+            
+            document.getElementById('sectionProgress').style.width = `${percentage}%`;
+            
+            // Update section tab
+            const currentTab = document.querySelector(`[data-section="${examData.currentSection}"]`);
+            if (currentTab) {
+                const progressDiv = currentTab.querySelector('.section-progress');
+                if (progressDiv) {
+                    progressDiv.textContent = `${progress.answered}/${progress.total}`;
+                }
+            }
+        }
+
+        function handleSectionTabClick(e) {
+            if (e.target.classList.contains('section-tab') || e.target.parentElement.classList.contains('section-tab')) {
+                const tab = e.target.classList.contains('section-tab') ? e.target : e.target.parentElement;
+                const section = tab.dataset.section;
+                
+                if (tab.classList.contains('locked')) {
+                    alert('Complete previous sections before accessing this section.');
+                    return;
+                }
+                
+                switchSection(section);
+            }
+        }
+
+        function switchSection(sectionName) {
+            saveCurrentResponse();
+            
+            // Update active tab
+            document.querySelectorAll('.section-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+            
+            // Update current section
+            examData.currentSection = sectionName;
+            examData.currentQuestion = 0;
+            
+            // Update section info
+            document.getElementById('currentSection').textContent = sectionName.toUpperCase();
+            
+            // Reinitialize for new section
+            initializeQuestionPalette();
+            loadQuestion(0);
+        }
+
+        function initializeQuestionPalette() {
+            const paletteContainer = document.getElementById('paletteQuestions');
+            paletteContainer.innerHTML = '';
+            
+            const section = examData.currentSection;
+            const questions = examData.questions[section];
+            
+            questions.forEach((question, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'palette-btn not-visited';
+                btn.textContent = question.id;
+                btn.onclick = () => loadQuestion(index);
+                
+                // Add tooltip
+                btn.setAttribute('data-tooltip', getQuestionTooltip(question));
+                
+                paletteContainer.appendChild(btn);
+            });
+            
+            updatePaletteStatus();
+            updateSectionProgress();
+        }
+
+        function getQuestionTooltip(question) {
+            if (examData.responses[question.id] !== undefined) {
+                return `Q${question.id}: Answered`;
+            } else if (examData.markedForReview.has(question.id)) {
+                return `Q${question.id}: Marked for Review`;
+            } else if (examData.visitedQuestions.has(question.id)) {
+                return `Q${question.id}: Not Answered`;
+            } else {
+                return `Q${question.id}: Not Visited`;
+            }
+        }
+
+        function updatePaletteStatus() {
+            const section = examData.currentSection;
+            const questions = examData.questions[section];
+            const paletteButtons = document.querySelectorAll('.palette-btn');
+            
+            paletteButtons.forEach((btn, index) => {
+                const questionId = questions[index].id;
+                btn.className = 'palette-btn';
+                
+                // Remove current class first
+                btn.classList.remove('current');
+                
+                if (index === examData.currentQuestion) {
+                    btn.classList.add('current');
+                }
+                
+                if (examData.markedForReview.has(questionId)) {
+                    btn.classList.add('marked');
+                } else if (examData.responses[questionId] !== undefined) {
+                    btn.classList.add('answered');
+                } else if (examData.visitedQuestions.has(questionId)) {
+                    btn.classList.add('not-answered');
+                } else {
+                    btn.classList.add('not-visited');
+                }
+                
+                // Update tooltip
+                btn.setAttribute('data-tooltip', getQuestionTooltip(questions[index]));
+            });
+        }
+
+        function loadQuestion(questionIndex) {
+            const section = examData.currentSection;
+            const questions = examData.questions[section];
+            
+            if (questionIndex < 0 || questionIndex >= questions.length) return;
+            
+            // Save time spent on previous question
+            if (examData.currentQuestionStartTime) {
+                const timeSpent = Date.now() - examData.currentQuestionStartTime;
+                const prevQuestion = questions[examData.currentQuestion];
+                if (prevQuestion) {
+                    examData.questionTimeSpent[prevQuestion.id] = (examData.questionTimeSpent[prevQuestion.id] || 0) + timeSpent;
+                }
+            }
+            
+            examData.currentQuestion = questionIndex;
+            examData.currentQuestionStartTime = Date.now();
+            const question = questions[questionIndex];
+            
+            // Mark as visited
+            examData.visitedQuestions.add(question.id);
+            
+            // Update question display
+            document.getElementById('currentQuestionNum').textContent = question.id;
+            document.getElementById('totalQuestions').textContent = '100';
+            document.getElementById('questionMarks').textContent = question.marks;
+            document.getElementById('questionText').textContent = question.text;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = questionIndex === 0;
+            document.getElementById('saveNextBtn').textContent = 
+                questionIndex === questions.length - 1 ? 'Save & Next Section' : 'Save & Next';
+            
+            // Load options
+            loadQuestionOptions(question);
+            
+            // Update palette
+            updatePaletteStatus();
+            updateSectionProgress();
+        }
+
+        function loadQuestionOptions(question) {
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+            
+            if (question.type === 'mcq') {
+                question.options.forEach((option, index) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'option';
+                    
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = 'answer';
+                    radio.value = index;
+                    radio.id = `option_${index}`;
+                    
+                    // Check if this option was previously selected
+                    if (examData.responses[question.id] === index) {
+                        radio.checked = true;
+                        optionDiv.classList.add('selected');
+                    }
+                    
+                    const label = document.createElement('label');
+                    label.htmlFor = `option_${index}`;
+                    label.className = 'option-text';
+                    label.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+                    
+                    optionDiv.appendChild(radio);
+                    optionDiv.appendChild(label);
+                    
+                    optionDiv.onclick = () => {
+                        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                        optionDiv.classList.add('selected');
+                        radio.checked = true;
+                    };
+                    
+                    container.appendChild(optionDiv);
+                });
+            } else if (question.type === 'msq') {
+                question.options.forEach((option, index) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'option';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.name = 'answer';
+                    checkbox.value = index;
+                    checkbox.id = `option_${index}`;
+                    
+                    // Check if this option was previously selected
+                    const savedResponse = examData.responses[question.id];
+                    if (savedResponse && Array.isArray(savedResponse) && savedResponse.includes(index)) {
+                        checkbox.checked = true;
+                        optionDiv.classList.add('selected');
+                    }
+                    
+                    const label = document.createElement('label');
+                    label.htmlFor = `option_${index}`;
+                    label.className = 'option-text';
+                    label.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+                    
+                    optionDiv.appendChild(checkbox);
+                    optionDiv.appendChild(label);
+                    
+                    optionDiv.onclick = () => {
+                        checkbox.checked = !checkbox.checked;
+                        if (checkbox.checked) {
+                            optionDiv.classList.add('selected');
+                        } else {
+                            optionDiv.classList.remove('selected');
+                        }
+                    };
+                    
+                    container.appendChild(optionDiv);
+                });
+            } else if (question.type === 'numeric') {
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.className = 'numeric-input';
+                input.placeholder = 'Enter your answer';
+                
+                // Set validation
+                input.addEventListener('input', (e) => {
+                    validateNumericInput(e.target);
+                });
+                
+                // Set previously saved value
+                if (examData.responses[question.id] !== undefined) {
+                    input.value = examData.responses[question.id];
+                }
+                
+                container.appendChild(input);
+            }
+        }
+
+        function validateNumericInput(input) {
+            const value = input.value;
+            const isValid = /^-?\d*\.?\d*$/.test(value);
+            
+            if (!isValid && value !== '') {
+                input.classList.add('invalid');
+            } else {
+                input.classList.remove('invalid');
+            }
+        }
+
+        function saveCurrentResponse() {
+            const section = examData.currentSection;
+            const question = examData.questions[section][examData.currentQuestion];
+            
+            if (question.type === 'mcq') {
+                const selected = document.querySelector('input[name="answer"]:checked');
+                if (selected) {
+                    examData.responses[question.id] = parseInt(selected.value);
+                }
+            } else if (question.type === 'msq') {
+                const selected = Array.from(document.querySelectorAll('input[name="answer"]:checked'))
+                    .map(cb => parseInt(cb.value));
+                if (selected.length > 0) {
+                    examData.responses[question.id] = selected;
+                }
+            } else if (question.type === 'numeric') {
+                const input = document.querySelector('.numeric-input');
+                if (input && input.value.trim() && !input.classList.contains('invalid')) {
+                    examData.responses[question.id] = parseFloat(input.value);
+                }
+            }
+            
+            // Auto-save after response
+            saveExamState();
+        }
+
+        function clearResponse() {
+            const section = examData.currentSection;
+            const question = examData.questions[section][examData.currentQuestion];
+            
+            // Clear from responses
+            delete examData.responses[question.id];
+            examData.markedForReview.delete(question.id);
+            
+            // Clear UI
+            document.querySelectorAll('input[name="answer"]').forEach(input => {
+                input.checked = false;
+            });
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelectorAll('.numeric-input').forEach(input => {
+                input.value = '';
+                input.classList.remove('invalid');
+            });
+            
+            updatePaletteStatus();
+            updateSectionProgress();
+            saveExamState();
+        }
+
+        function markForReview() {
+            saveCurrentResponse();
+            const section = examData.currentSection;
+            const question = examData.questions[section][examData.currentQuestion];
+            examData.markedForReview.add(question.id);
+            updatePaletteStatus();
+            saveExamState();
+        }
+
+        function navigateQuestion(direction) {
+            const section = examData.currentSection;
+            const questions = examData.questions[section];
+            let newIndex = examData.currentQuestion + direction;
+            
+            if (direction > 0 && newIndex >= questions.length) {
+                // Move to next section
+                const sections = Object.keys(examData.questions);
+                const currentSectionIndex = sections.indexOf(section);
+                
+                if (currentSectionIndex < sections.length - 1) {
+                    // Mark current section as completed if all questions attempted
+                    const progress = calculateSectionProgress(section);
+                    if (progress.answered === progress.total) {
+                        examData.completedSections.add(section);
+                    }
+                    
+                    // Switch to next section
+                    const nextSection = sections[currentSectionIndex + 1];
+                    switchSection(nextSection);
+                    return;
+                }
+            }
+            
+            if (newIndex >= 0 && newIndex < questions.length) {
+                saveCurrentResponse();
+                loadQuestion(newIndex);
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                examData.timeRemaining--;
+                
+                const hours = Math.floor(examData.timeRemaining / 3600);
+                const minutes = Math.floor((examData.timeRemaining % 3600) / 60);
+                const seconds = examData.timeRemaining % 60;
+                
+                const timerDisplay = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                document.getElementById('timer').textContent = timerDisplay;
+                
+                // Warning at 10 minutes
+                if (examData.timeRemaining === 600) {
+                    showTimeWarning('10 minutes remaining!');
+                }
+                
+                // Warning at 5 minutes
+                if (examData.timeRemaining === 300) {
+                    showTimeWarning('5 minutes remaining!');
+                    document.getElementById('timer').classList.add('warning');
+                }
+                
+                // Auto submit at 0
+                if (examData.timeRemaining <= 0) {
+                    autoSubmitExam('Time expired');
+                }
+            }, 1000);
+        }
+
+        function startSectionTimer() {
+            sectionTimerInterval = setInterval(() => {
+                if (examData.currentSection) {
+                    examData.sectionTimeSpent[examData.currentSection]++;
+                    
+                    const timeSpent = examData.sectionTimeSpent[examData.currentSection];
+                    const minutes = Math.floor(timeSpent / 60);
+                    const seconds = timeSpent % 60;
+                    
+                    document.getElementById('sectionTimer').textContent = 
+                        `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        function showTimeWarning(message) {
+            document.getElementById('warningTitle').textContent = 'Time Warning';
+            document.getElementById('warningMessage').textContent = message;
+            showModal('warningModal');
+        }
+
+        function showWarning() {
+            document.getElementById('warningBanner').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('warningBanner').classList.add('hidden');
+            }, 5000);
+            
+            document.getElementById('warningTitle').textContent = 'Violation Warning';
+            document.getElementById('warningMessage').textContent = 'Suspicious activity detected. Next violation will result in automatic submission.';
+            showModal('warningModal');
+        }
+
+        function showSubmitConfirmation() {
+            document.getElementById('confirmMessage').textContent = 'Are you sure you want to submit the test? You cannot change your answers after submission.';
+            showModal('confirmModal');
+            document.getElementById('confirmAction').onclick = () => {
+                hideAllModals();
+                submitExam('Manual submission');
+            };
+        }
+
+        function showLogoutConfirmation() {
+            document.getElementById('confirmMessage').textContent = 'Are you sure you want to logout? Your exam will be terminated and cannot be resumed.';
+            showModal('confirmModal');
+            document.getElementById('confirmAction').onclick = () => {
+                hideAllModals();
+                logout();
+            };
+        }
+
+        function logout() {
+            examStarted = false;
+            clearInterval(timerInterval);
+            clearInterval(sectionTimerInterval);
+            clearInterval(webcamInterval);
+            clearInterval(examData.autoSaveInterval);
+            
+            // Stop camera stream
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            
+            // Clear saved state
+            clearExamState();
+            
+            // Reset exam data
+            examData = {
+                candidate: { name: '', rollNumber: '' },
+                currentQuestion: 0,
+                currentSection: 'tcs',
+                timeRemaining: 120 * 60,
+                sectionTimeSpent: {},
+                questionTimeSpent: {},
+                tabSwitchCount: 0,
+                fullscreenExitCount: 0,
+                examStartTime: null,
+                questions: sampleQuestions,
+                responses: {},
+                visitedQuestions: new Set(),
+                markedForReview: new Set(),
+                correctAnswers: {},
+                sequentialMode: false,
+                completedSections: new Set(),
+                webcamSnapshots: [],
+                violationCount: 0,
+                autoSaveInterval: null
+            };
+            
+            // Return to login page
+            document.getElementById('examPage').classList.add('hidden');
+            document.getElementById('resultPage').classList.add('hidden');
+            document.getElementById('loginPage').classList.remove('hidden');
+            
+            // Exit fullscreen
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+
+        function handleConfirmAction() {
+            // This will be set dynamically by the calling function
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function hideAllModals() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+
+        function autoSubmitExam(reason) {
+            clearInterval(timerInterval);
+            clearInterval(sectionTimerInterval);
+            clearInterval(webcamInterval);
+            clearInterval(examData.autoSaveInterval);
+            examStarted = false;
+            submitExam(reason);
+        }
+
+        function submitExam(submissionType) {
+            saveCurrentResponse();
+            
+            // Stop all timers and intervals
+            clearInterval(timerInterval);
+            clearInterval(sectionTimerInterval);
+            clearInterval(webcamInterval);
+            clearInterval(examData.autoSaveInterval);
+            
+            examStarted = false;
+            
+            // Calculate results
+            const results = calculateResults();
+            
+            // Update result page
+            updateResultPage(results, submissionType);
+            
+            // Generate charts
+            generateResultCharts(results);
+            
+            // Clear saved state
+            clearExamState();
+            
+            // Show result page
+            document.getElementById('examPage').classList.add('hidden');
+            document.getElementById('resultPage').classList.remove('hidden');
+            
+            // Exit fullscreen
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+
+        function calculateResults() {
+            let totalQuestions = 0;
+            let attempted = 0;
+            let correct = 0;
+            let totalMarks = 0;
+            let sectionResults = {};
+            
+            Object.keys(examData.questions).forEach(section => {
+                const sectionQuestions = examData.questions[section];
+                let sectionAttempted = 0;
+                let sectionCorrect = 0;
+                let sectionMarks = 0;
+                let sectionTotal = 0;
+                
+                sectionQuestions.forEach(question => {
+                    totalQuestions++;
+                    sectionTotal++;
+                    
+                    if (examData.responses[question.id] !== undefined) {
+                        attempted++;
+                        sectionAttempted++;
+                        
+                        // Check if answer is correct
+                        const userAnswer = examData.responses[question.id];
+                        const correctAnswer = question.correct;
+                        
+                        let isCorrect = false;
+                        if (question.type === 'msq') {
+                            // For MSQ, check if arrays are equal
+                            isCorrect = Array.isArray(userAnswer) && Array.isArray(correctAnswer) &&
+                                userAnswer.length === correctAnswer.length &&
+                                userAnswer.every(val => correctAnswer.includes(val));
+                        } else {
+                            isCorrect = userAnswer === correctAnswer;
+                        }
+                        
+                        if (isCorrect) {
+                            correct++;
+                            sectionCorrect++;
+                            totalMarks += question.marks;
+                            sectionMarks += question.marks;
+                        }
+                    }
+                });
+                
+                sectionResults[section] = {
+                    total: sectionTotal,
+                    attempted: sectionAttempted,
+                    correct: sectionCorrect,
+                    marks: sectionMarks,
+                    accuracy: sectionAttempted > 0 ? (sectionCorrect / sectionAttempted * 100).toFixed(1) : 0
+                };
+            });
+            
+            const timeTaken = Math.floor((new Date() - examData.examStartTime) / 1000 / 60);
+            const avgTimePerQuestion = attempted > 0 ? Math.floor((timeTaken * 60) / attempted) : 0;
+            const accuracy = attempted > 0 ? (correct / attempted * 100).toFixed(1) : 0;
+            
+            return {
+                totalQuestions,
+                attempted,
+                correct,
+                totalMarks,
+                notAttempted: totalQuestions - attempted,
+                markedForReview: examData.markedForReview.size,
+                timeTaken,
+                avgTimePerQuestion,
+                accuracy,
+                sectionResults,
+                violationCount: examData.violationCount
+            };
+        }
+
+        function updateResultPage(results, submissionType) {
+            document.getElementById('resultTotalQuestions').textContent = results.totalQuestions;
+            document.getElementById('resultAttempted').textContent = results.attempted;
+            document.getElementById('resultCorrect').textContent = results.correct;
+            document.getElementById('resultScore').textContent = results.totalMarks;
+            document.getElementById('resultNotAttempted').textContent = results.notAttempted;
+            document.getElementById('resultMarkedReview').textContent = results.markedForReview;
+            document.getElementById('resultTimeTaken').textContent = `${results.timeTaken} minutes`;
+            document.getElementById('avgTimePerQuestion').textContent = `${results.avgTimePerQuestion} sec`;
+            document.getElementById('accuracyPercent').textContent = `${results.accuracy}%`;
+            document.getElementById('submissionType').textContent = submissionType;
+            document.getElementById('violationCount').textContent = results.violationCount;
+            
+            // Update detailed section stats
+            const sectionStatsContainer = document.getElementById('detailedSectionStats');
+            sectionStatsContainer.innerHTML = '';
+            
+            Object.keys(results.sectionResults).forEach(section => {
+                const sectionData = results.sectionResults[section];
+                const timeSpent = examData.sectionTimeSpent[section] || 0;
+                const timeMinutes = Math.floor(timeSpent / 60);
+                const timeSeconds = timeSpent % 60;
+                
+                const sectionCard = document.createElement('div');
+                sectionCard.className = 'section-card';
+                sectionCard.innerHTML = `
+                    <h4>${section.toUpperCase()}</h4>
+                    <div class="stat-item">
+                        <span>Total Questions:</span>
+                        <span>${sectionData.total}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Attempted:</span>
+                        <span>${sectionData.attempted}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Correct:</span>
+                        <span>${sectionData.correct}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Marks Scored:</span>
+                        <span>${sectionData.marks}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Accuracy:</span>
+                        <span>${sectionData.accuracy}%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Time Spent:</span>
+                        <span>${timeMinutes}:${timeSeconds.toString().padStart(2, '0')}</span>
+                    </div>
+                `;
+                sectionStatsContainer.appendChild(sectionCard);
+            });
+        }
+
+        function generateResultCharts(results) {
+            // Section-wise performance chart
+            const sectionCtx = document.getElementById('sectionChart').getContext('2d');
+            const sectionLabels = Object.keys(results.sectionResults).map(s => s.toUpperCase());
+            const sectionScores = Object.values(results.sectionResults).map(s => s.marks);
+            
+            new Chart(sectionCtx, {
+                type: 'bar',
+                data: {
+                    labels: sectionLabels,
+                    datasets: [{
+                        label: 'Marks Scored',
+                        data: sectionScores,
+                        backgroundColor: '#0a3d62',
+                        borderColor: '#083047',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            // Response distribution pie chart
+            const responseCtx = document.getElementById('responseChart').getContext('2d');
+            
+            new Chart(responseCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Correct', 'Incorrect', 'Not Attempted', 'Marked for Review'],
+                    datasets: [{
+                        data: [
+                            results.correct,
+                            results.attempted - results.correct,
+                            results.notAttempted,
+                            results.markedForReview
+                        ],
+                        backgroundColor: ['#27ae60', '#e74c3c', '#d3d3d3', '#8e44ad'],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function downloadResultsPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Add title
+            doc.setFontSize(20);
+            doc.text('TCS iON Exam Results', 20, 30);
+            
+            // Add candidate info
+            doc.setFontSize(12);
+            doc.text(`Candidate: ${examData.candidate.name}`, 20, 50);
+            doc.text(`Roll Number: ${examData.candidate.rollNumber}`, 20, 60);
+            doc.text(`Exam Date: ${new Date().toLocaleDateString()}`, 20, 70);
+            
+            // Add summary
+            doc.setFontSize(14);
+            doc.text('Performance Summary:', 20, 90);
+            
+            doc.setFontSize(10);
+            const results = calculateResults();
+            doc.text(`Total Questions: ${results.totalQuestions}`, 20, 105);
+            doc.text(`Attempted: ${results.attempted}`, 20, 115);
+            doc.text(`Correct: ${results.correct}`, 20, 125);
+            doc.text(`Total Marks: ${results.totalMarks}`, 20, 135);
+            doc.text(`Accuracy: ${results.accuracy}%`, 20, 145);
+            doc.text(`Time Taken: ${results.timeTaken} minutes`, 20, 155);
+            
+            // Add section-wise results
+            doc.setFontSize(14);
+            doc.text('Section-wise Performance:', 20, 175);
+            
+            let yPos = 190;
+            Object.keys(results.sectionResults).forEach(section => {
+                const sectionData = results.sectionResults[section];
+                doc.setFontSize(10);
+                doc.text(`${section.toUpperCase()}: ${sectionData.attempted}/${sectionData.total} attempted, ${sectionData.correct} correct (${sectionData.accuracy}%)`, 20, yPos);
+                yPos += 10;
+            });
+            
+            // Save the PDF
+            doc.save(`TCS_iON_Results_${examData.candidate.rollNumber}.pdf`);
+        }
+    </script>
+</body>
+</html>
+                
